@@ -1,0 +1,162 @@
+/* ══════════════════════════════════════
+   NEURAL ASSISTANT — Keyframes & Styles
+   ══════════════════════════════════════ */
+
+/* Avatar floating oscillation */
+@keyframes neural-float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Breathing scale pulse */
+@keyframes neural-breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+/* Mic pulse when listening */
+@keyframes neural-mic-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(217, 70, 239, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 12px rgba(217, 70, 239, 0);
+    }
+}
+
+/* Aura ring rotation */
+@keyframes neural-aura-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Eye flicker for listening state */
+@keyframes neural-eye-flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* ── Glass Chat Panel ── */
+.neural-chat-panel {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 380px;
+    max-height: min(520px, calc(100vh - 140px));
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 10, 26, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 20px;
+    box-shadow:
+        0 0 40px rgba(0, 243, 255, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    overflow: hidden;
+    /* Prevent content bleeding */
+}
+
+/* ── Message area scrollbar ── */
+.neural-messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+    /* Important for flex-shrink scrolling */
+    scroll-behavior: smooth;
+}
+
+.neural-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.neural-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.neural-messages::-webkit-scrollbar-thumb {
+    background: rgba(0, 243, 255, 0.2);
+    border-radius: 999px;
+}
+
+/* ── Doubt bubble ── */
+.neural-doubt-bubble {
+    position: fixed;
+    bottom: 110px;
+    right: 90px;
+    background: rgba(10, 10, 26, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 12px;
+    padding: 8px 14px;
+    color: #00f3ff;
+    font-size: 11px;
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    z-index: 9997;
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+.neural-doubt-bubble:hover {
+    border-color: rgba(0, 243, 255, 0.6);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+}
+
+/* ── Mobile: full-screen overlay ── */
+@media (max-width: 768px) {
+    .neural-chat-panel {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+
+    .neural-doubt-bubble {
+        bottom: 80px;
+        right: 16px;
+    }
+}

@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-neon-blue: #00f3ff;
+  --color-neon-blue-dark: #0099CC;
+  --color-neon-blue-dim: rgba(0, 243, 255, 0.2);
+  --color-neon-blue-glow: rgba(0, 243, 255, 0.4);
+  --color-neon-green: #39ff14;
+  --color-void: #000000;
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased overflow-x-hidden;
+    background-color: #000000;
+    font-family: var(--font-body);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-neon-blue-dim);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-blue-glow);
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--color-neon-blue);
+    color: #000000;
+  }
+}
+
+/* ── Utility Keyframes ── */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--color-neon-blue-dim),
+      0 0 60px var(--color-neon-blue-dim);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--color-neon-blue-glow),
+      0 0 100px var(--color-neon-blue-dim);
+    transform: scale(1.03);
+  }
+}
+
+/* Weightless drift for hero headline */
+@keyframes weightless-drift {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-8px) rotate(0.3deg);
+  }
+
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(8px) rotate(-0.3deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ghost Mode — screen shake for glitch tunnel */
+@keyframes ghost-shake {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-3px, 2px);
+  }
+
+  50% {
+    transform: translate(2px, -2px);
+  }
+
+  75% {
+    transform: translate(-1px, -3px);
+  }
+
+  100% {
+    transform: translate(3px, 1px);
+  }
+}
