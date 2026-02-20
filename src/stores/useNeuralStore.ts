@@ -71,7 +71,9 @@ function generateResponse(input: string): string {
    STORE
    ══════════════════════════════════════ */
 
-export const useNeuralStore = create<NeuralState & NeuralActions>((set, get) => ({
+type NeuralStore = NeuralState & NeuralActions;
+
+export const useNeuralStore = create<NeuralStore>((set) => ({
     isOpen: false,
     isListening: false,
     messages: [
