@@ -8,7 +8,7 @@ import { useProjectStore } from "../stores/useProjectStore";
 const navLinks = [
     { label: "Features", href: "#features" },
     { label: "Team", href: "#team" },
-    { label: "Contact", href: "#edge" },
+    { label: "Hub", href: "/community" },
 ];
 
 interface NavbarProps {

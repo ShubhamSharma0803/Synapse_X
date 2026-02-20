@@ -134,3 +134,57 @@
     transform: translate(3px, 1px);
   }
 }
+
+/* Profile — Status dot ping */
+@keyframes ping {
+
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Profile — Navbar avatar spin on hover */
+.navbar-avatar-spin canvas {
+  animation: spin 2s linear infinite;
+}
+
+/* Profile — Home page avatar glowing pulse */
+@keyframes avatar-glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), 0 0 28px rgba(0, 229, 255, 0.2), 0 0 50px rgba(0, 229, 255, 0.1);
+    border-color: rgba(0, 229, 255, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.3), 0 0 70px rgba(0, 229, 255, 0.15);
+    border-color: rgba(0, 229, 255, 0.7);
+  }
+}
+
+/* Profile — Guest mode glitched avatar */
+.profile-glitch-avatar {
+  filter: grayscale(1) contrast(1.2);
+  position: relative;
+}
+
+.profile-glitch-avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px);
+  mix-blend-mode: overlay;
+  animation: ghost-shake 0.15s infinite;
+  pointer-events: none;
+}

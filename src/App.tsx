@@ -6,6 +6,9 @@ import Home from "./pages/Home";
 import CreateProject from "./pages/CreateProject";
 import DevelopersHub from "./pages/DevelopersHub";
 import AuthPage from "./pages/AuthPage";
+import ProfilePage from "./pages/ProfilePage";
+// @ts-ignore
+import DevCommunity from "./pages/DevCommunity";
 import PageTransition from "./components/PageTransition";
 import TunnelTransition from "./components/TunnelTransition";
 import CommandStrip from "./components/CommandStrip";
@@ -40,6 +43,13 @@ function AnimatedRoutes() {
   const launchGhost = useCallback(() => {
     setTunnelGlitch(true);
     setTunnelTarget("/");
+    setTunnelActive(true);
+  }, []);
+
+  /* ── Profile launch (from Navbar avatar) ── */
+  const launchProfile = useCallback(() => {
+    setTunnelGlitch(false);
+    setTunnelTarget("/profile");
     setTunnelActive(true);
   }, []);
 
@@ -102,8 +112,10 @@ function AnimatedRoutes() {
           <AnimatePresence mode="wait">
             <PageTransition key={location.pathname}>
               <Routes location={location}>
-                <Route path="/" element={<Home onGhostLaunch={launchGhost} />} />
+                <Route path="/" element={<Home onGhostLaunch={launchGhost} onLaunchProfile={launchProfile} />} />
                 <Route path="/create-project" element={<CreateProject />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/community" element={<DevCommunity />} />
               </Routes>
             </PageTransition>
           </AnimatePresence>
