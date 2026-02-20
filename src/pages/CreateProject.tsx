@@ -27,7 +27,6 @@ import {
 import { triggerAlert } from "../hook/useAlerts";
 import { apiPost } from "../api/client";
 import { supabase } from "../supabaseClient";
-import WizardCarousel from "../components/WizardCarousel";
 import { useProjectStore } from "../stores/useProjectStore";
 
 /* ══════════════════════════════════════
@@ -69,13 +68,18 @@ const INPUT_STYLE: React.CSSProperties = {
     fontFamily: "monospace",
 };
 
+/* ── Holographic focus / blur handlers ── */
 const focusRing = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)";
-    e.currentTarget.style.boxShadow = "0 0 20px rgba(0,229,255,0.08)";
+    e.currentTarget.style.borderColor = "rgba(0,229,255,0.6)";
+    e.currentTarget.style.boxShadow =
+        "0 0 20px rgba(0,229,255,0.12), 0 0 40px rgba(0,229,255,0.04)";
+    e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.65)";
+    e.currentTarget.style.transition = "all 0.4s ease";
 };
 const blurRing = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
     e.currentTarget.style.boxShadow = "none";
+    e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.5)";
 };
 
 /* ── Step labels ── */
@@ -87,7 +91,87 @@ const STEPS = [
 ];
 
 /* ══════════════════════════════════════
-   STEP 1: BASIC INFO
+   GLOW ICON — bloom + float
+   ══════════════════════════════════════ */
+const GlowIcon = ({
+    children,
+    color = "rgba(0, 229, 255, 0.8)",
+    size = "normal",
+}: {
+    children: React.ReactNode;
+    color?: string;
+    size?: "normal" | "large";
+}) => (
+    <motion.span
+        animate={{ y: [0, -5, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className={`inline-flex items-center justify-center ${size === "large" ? "h-10 w-10" : ""}`}
+        style={{
+            filter: `drop-shadow(0 0 8px ${color}) drop-shadow(0 0 16px ${color})`,
+        }}
+    >
+        {children}
+    </motion.span>
+);
+
+/* ══════════════════════════════════════
+   NEURAL BACKGROUND — SVG grid + mesh
+   ══════════════════════════════════════ */
+const NeuralGrid = () => (
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        {/* SVG dot grid */}
+        <svg className="absolute inset-0 h-full w-full opacity-[0.04]">
+            <defs>
+                <pattern id="neural-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="1" cy="1" r="1" fill="#00E5FF" />
+                </pattern>
+                <pattern id="neural-lines" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00E5FF" strokeWidth="0.3" />
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#neural-dots)" />
+            <rect width="100%" height="100%" fill="url(#neural-lines)" opacity="0.5" />
+        </svg>
+
+        {/* Animated mesh gradient blobs */}
+        <motion.div
+            animate={{ x: [0, 30, 0], y: [0, -20, 0], opacity: [0.15, 0.25, 0.15] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-40 -right-40"
+            style={{
+                width: 600,
+                height: 600,
+                background: "radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%)",
+                borderRadius: "50%",
+            }}
+        />
+        <motion.div
+            animate={{ x: [0, -25, 0], y: [0, 30, 0], opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-40 -left-40"
+            style={{
+                width: 700,
+                height: 700,
+                background: "radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)",
+                borderRadius: "50%",
+            }}
+        />
+        <motion.div
+            animate={{ x: [0, 15, 0], y: [0, 15, 0], opacity: [0.08, 0.16, 0.08] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/3 left-1/2 -translate-x-1/2"
+            style={{
+                width: 500,
+                height: 500,
+                background: "radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)",
+                borderRadius: "50%",
+            }}
+        />
+    </div>
+);
+
+/* ══════════════════════════════════════
+   STEP 1: IDENTITY
    ══════════════════════════════════════ */
 const StepIdentity = () => {
     const { projectName, category, priority, setField } = useProjectStore();
@@ -250,7 +334,9 @@ const StepDetails = () => {
                     <input type="file" id="fileUpload" onChange={handleFileInput}
                         accept="image/*,.pdf,.doc,.docx,.txt" multiple className="hidden" />
                     <label htmlFor="fileUpload" className="cursor-pointer">
-                        <Upload className="mx-auto mb-2 h-8 w-8" style={{ color: "rgba(0,229,255,0.4)" }} />
+                        <GlowIcon>
+                            <Upload className="mx-auto mb-2 h-8 w-8" style={{ color: "rgba(0,229,255,0.5)" }} />
+                        </GlowIcon>
                         <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
                             Drag & drop or <span className="underline" style={{ color: "#00E5FF" }}>browse</span>
                         </p>
@@ -362,7 +448,9 @@ const StepTimeline = () => {
                         backgroundColor: "rgba(0,229,255,0.04)",
                         border: "1px solid rgba(0,229,255,0.12)",
                     }}>
-                    <Users className="h-4 w-4" style={{ color: "#00E5FF" }} />
+                    <GlowIcon>
+                        <Users className="h-4 w-4" style={{ color: "#00E5FF" }} />
+                    </GlowIcon>
                     <span className="text-sm font-medium" style={{ color: "#00E5FF", fontFamily: "monospace" }}>
                         {leaderName}
                     </span>
@@ -456,7 +544,9 @@ const StepTeam = () => {
                             backgroundColor: "rgba(255,255,255,0.02)",
                             border: "1px solid rgba(255,255,255,0.05)",
                         }}>
-                        <Users className="h-10 w-10" style={{ color: "rgba(255,255,255,0.08)" }} />
+                        <GlowIcon color="rgba(255,255,255,0.15)">
+                            <Users className="h-10 w-10" style={{ color: "rgba(255,255,255,0.08)" }} />
+                        </GlowIcon>
                         <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "monospace" }}>
               // no members added yet
                         </p>
@@ -883,62 +973,46 @@ const CreateProject = () => {
 
     return (
         <div className="relative min-h-screen" style={{ backgroundColor: "#000" }}>
+            {/* Neural background */}
+            <NeuralGrid />
+
             {/* Terminal overlay */}
             {isSubmitting && <TerminalOverlay />}
 
-            {/* Progress Bar */}
+            {/* Progress Bar — cyan to purple gradient */}
             <div className="fixed left-0 right-0 top-0 z-[200]"
                 style={{ height: 3, backgroundColor: "rgba(255,255,255,0.05)" }}>
                 <motion.div className="h-full"
                     style={{
-                        background: "linear-gradient(90deg, #0099CC, #00E5FF)",
-                        boxShadow: "0 0 15px rgba(0,229,255,0.4)",
+                        background: "linear-gradient(90deg, #00E5FF, #a855f7)",
+                        boxShadow: "0 0 20px rgba(0,229,255,0.5), 0 0 40px rgba(168,85,247,0.3)",
                     }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} />
             </div>
 
-            {/* ── Split Layout ── */}
-            <div className="flex min-h-screen flex-col lg:flex-row pt-20">
-                {/* ═══ RIGHT — Live Preview (shows on top for mobile) ═══ */}
-                <div className="order-first lg:order-last lg:w-[40%] flex items-center justify-center p-4 lg:p-8"
-                    style={{ minHeight: "40vh" }}>
-                    <div className="relative h-full w-full rounded-3xl overflow-hidden"
-                        style={{
-                            backgroundColor: "rgba(255,255,255,0.015)",
-                            border: "1px solid rgba(255,255,255,0.04)",
-                            minHeight: 400,
-                        }}>
-                        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                            style={{
-                                width: 500, height: 500,
-                                background: "radial-gradient(circle, rgba(0,243,255,0.04) 0%, transparent 70%)",
-                            }} />
-                        <WizardCarousel />
-                    </div>
-                </div>
-
-                {/* ═══ LEFT — Console (Form) ═══ */}
-                <div className="lg:w-[60%] p-4 lg:p-8">
+            {/* ── Centered Layout ── */}
+            <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-20">
+                <div className="w-full max-w-3xl">
                     {/* Header */}
-                    <div className="mb-6 text-center lg:text-left">
+                    <div className="mb-8 text-center">
                         <h1 className="text-3xl font-bold text-white" style={{ fontFamily: "monospace" }}>
                             Initialize{" "}
                             <span style={{
-                                background: "linear-gradient(90deg, #00E5FF, #0099CC)",
+                                background: "linear-gradient(90deg, #00E5FF, #a855f7)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                             }}>
                                 Neural Sync
                             </span>
                         </h1>
-                        <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "monospace" }}>
+                        <p className="mt-2 text-sm" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "monospace" }}>
               // let AI orchestrate your project into actionable milestones
                         </p>
                     </div>
 
                     {/* Step navigation pills */}
-                    <div className="mb-6 flex flex-wrap items-center gap-2">
+                    <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
                         {STEPS.map((step) => {
                             const isActive = step.num === currentStep;
                             const isPast = step.num < currentStep;
@@ -953,7 +1027,13 @@ const CreateProject = () => {
                                         color: isActive ? "#00E5FF" : isPast ? "#39ff14" : "rgba(255,255,255,0.35)",
                                         fontFamily: "monospace",
                                     }}>
-                                    {isPast ? <Check className="h-3.5 w-3.5" /> : step.icon}
+                                    {isPast ? (
+                                        <Check className="h-3.5 w-3.5" />
+                                    ) : (
+                                        <GlowIcon color={isActive ? "rgba(0,229,255,0.6)" : "transparent"}>
+                                            {step.icon}
+                                        </GlowIcon>
+                                    )}
                                     <span className="hidden sm:inline">{step.label}</span>
                                 </button>
                             );
@@ -962,33 +1042,40 @@ const CreateProject = () => {
 
                     {/* Glassmorphic form container */}
                     <form onSubmit={handleSubmit}>
-                        <div className="rounded-3xl p-6 lg:p-8"
+                        <motion.div
+                            className="rounded-3xl p-6 lg:p-8"
                             style={{
                                 backgroundColor: "rgba(255,255,255,0.03)",
-                                border: "1px solid rgba(255,255,255,0.06)",
+                                border: "1px solid rgba(255,255,255,0.08)",
                                 backdropFilter: "blur(40px)",
                                 WebkitBackdropFilter: "blur(40px)",
-                            }}>
+                                boxShadow:
+                                    "0 0 60px rgba(0,229,255,0.04), 0 0 120px rgba(168,85,247,0.02), inset 0 1px 0 rgba(255,255,255,0.05)",
+                            }}
+                        >
                             {/* Step header */}
                             <div className="mb-6">
-                                <h2 className="text-xl font-bold text-white" style={{ fontFamily: "monospace" }}>
+                                <h2 className="flex items-center gap-3 text-xl font-bold text-white" style={{ fontFamily: "monospace" }}>
+                                    <GlowIcon>
+                                        {STEPS[currentStep - 1]?.icon}
+                                    </GlowIcon>
                                     {STEPS[currentStep - 1]?.label}
                                 </h2>
                                 <div className="mt-2 h-[1px] w-16"
-                                    style={{ background: "linear-gradient(90deg, rgba(0,229,255,0.5), transparent)" }} />
+                                    style={{ background: "linear-gradient(90deg, rgba(0,229,255,0.5), rgba(168,85,247,0.3), transparent)" }} />
                             </div>
 
-                            {/* Step content */}
+                            {/* Step content — horizontal slide transitions */}
                             <AnimatePresence mode="wait">
                                 <motion.div key={currentStep}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                    transition={{ duration: 0.3 }}>
+                                    initial={{ opacity: 0, x: 60 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -60 }}
+                                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}>
                                     {renderStep()}
                                 </motion.div>
                             </AnimatePresence>
-                        </div>
+                        </motion.div>
 
                         {/* Navigation buttons */}
                         <div className="mt-6 flex gap-3">
@@ -1021,10 +1108,10 @@ const CreateProject = () => {
                                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                                     className="flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold uppercase tracking-wider transition-all disabled:opacity-50"
                                     style={{
-                                        background: "linear-gradient(135deg, #00E5FF, #0066ff)",
+                                        background: "linear-gradient(135deg, #00E5FF, #a855f7)",
                                         color: "#000",
                                         fontFamily: "monospace",
-                                        boxShadow: "0 0 30px rgba(0,229,255,0.2)",
+                                        boxShadow: "0 0 30px rgba(0,229,255,0.2), 0 0 60px rgba(168,85,247,0.1)",
                                     }}>
                                     {isSubmitting ? (
                                         <><BrainCircuit className="h-5 w-5 animate-pulse" /> Syncing with AI...</>

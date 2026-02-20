@@ -81,12 +81,12 @@ const ImageRing3D = ({ members, onSelect }: ImageRing3DProps) => {
 
     /* ── DESKTOP: 3D ring ── */
     const angleStep = 360 / count;
-    const radius = Math.max(200, count * 50);
+    const radius = Math.max(280, count * 60);
 
     return (
         <div
             className="relative mx-auto flex items-center justify-center"
-            style={{ height: 320, perspective: "1200px" }}
+            style={{ height: 400, perspective: "1200px" }}
         >
             <div
                 className="relative h-full w-full"
@@ -106,8 +106,8 @@ const ImageRing3D = ({ members, onSelect }: ImageRing3DProps) => {
                                 key={member.name}
                                 className="absolute left-1/2 top-1/2 cursor-pointer"
                                 animate={{
-                                    x: x - 56,
-                                    y: -56,
+                                    x: x - 80,
+                                    y: -80,
                                     z,
                                     rotateY: -angle,
                                     scale: isActive ? 1.15 : 0.8,
@@ -165,8 +165,8 @@ const MemberCard = ({
         <div
             className="relative flex flex-col items-center snap-center"
             style={{
-                width: 112,
-                height: 112,
+                width: 160,
+                height: 160,
                 borderRadius: 20,
                 overflow: "hidden",
                 backgroundColor: "rgba(255,255,255,0.04)",
@@ -188,7 +188,7 @@ const MemberCard = ({
             />
             {/* Status dot */}
             <div
-                className="absolute bottom-2 right-2 h-3 w-3 rounded-full"
+                className="absolute bottom-2.5 right-2.5 h-3.5 w-3.5 rounded-full"
                 style={{
                     backgroundColor:
                         member.status === "active"

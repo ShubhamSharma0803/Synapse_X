@@ -23,7 +23,7 @@ const MOCK_COMMITS = [
 
 const TerminalFeed = () => {
     const [visibleCommits, setVisibleCommits] = useState<typeof MOCK_COMMITS>([]);
-    const bottomRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const indexRef = useRef(0);
 
     useEffect(() => {
@@ -42,7 +42,9 @@ const TerminalFeed = () => {
     }, []);
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
     }, [visibleCommits]);
 
     return (
@@ -71,6 +73,7 @@ const TerminalFeed = () => {
 
             {/* Commit list */}
             <div
+                ref={containerRef}
                 className="flex-1 overflow-y-auto p-4 space-y-2"
                 style={{ maxHeight: 240, fontFamily: "'Courier New', monospace" }}
             >
@@ -87,7 +90,6 @@ const TerminalFeed = () => {
                         />
                     </div>
                 ))}
-                <div ref={bottomRef} />
             </div>
         </GlassSurface>
     );

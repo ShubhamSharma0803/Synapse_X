@@ -6,6 +6,7 @@ import { create } from "zustand";
 
 const GHOST_STORAGE_KEY = "synapse_ghost_session";
 const GHOST_DATA_KEY = "synapse_ghost_projects";
+const AUTH_STORAGE_KEY = "synapse_auth_session";
 
 function generateGhostId(): string {
     return `GHOST_USER_#${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
@@ -48,6 +49,7 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
             GHOST_STORAGE_KEY,
             JSON.stringify({ isGuest: true, ghostId })
         );
+        localStorage.removeItem(AUTH_STORAGE_KEY);
         set({ isGuest: true, isAuthenticated: false, ghostId, displayName: ghostId });
     },
 
@@ -57,12 +59,17 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
     },
 
     authenticate: (name: string) => {
+        const displayName = name || "Operator";
         localStorage.removeItem(GHOST_STORAGE_KEY);
+        localStorage.setItem(
+            AUTH_STORAGE_KEY,
+            JSON.stringify({ isAuthenticated: true, displayName })
+        );
         set({
             isGuest: false,
             isAuthenticated: true,
             ghostId: "",
-            displayName: name || "Operator",
+            displayName,
         });
     },
 
@@ -87,6 +94,17 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
 
     hydrate: () => {
         try {
+            // Check for authenticated session first
+            const authRaw = localStorage.getItem(AUTH_STORAGE_KEY);
+            if (authRaw) {
+                const { isAuthenticated, displayName } = JSON.parse(authRaw);
+                if (isAuthenticated && displayName) {
+                    set({ isAuthenticated: true, isGuest: false, ghostId: "", displayName });
+                    return;
+                }
+            }
+
+            // Fall back to ghost session
             const raw = localStorage.getItem(GHOST_STORAGE_KEY);
             if (raw) {
                 const { isGuest, ghostId } = JSON.parse(raw);
@@ -99,3 +117,4 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
         }
     },
 }));
+
