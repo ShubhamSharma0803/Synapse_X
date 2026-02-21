@@ -254,30 +254,33 @@ const FeatureCardContent = ({
 }) => {
     return (
         <div
-            className="grid h-full w-full grid-cols-1 overflow-hidden lg:grid-cols-[1.2fr_0.8fr]"
+            className="grid h-full w-full grid-cols-1 overflow-hidden lg:grid-cols-[1.1fr_0.9fr]"
             style={{
                 backgroundColor: feature.bg,
                 borderRadius: 40,
                 borderTop: "1px solid rgba(255,255,255,0.2)",
+                boxShadow: "inset 0 1px 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.2)",
             }}
         >
             {/* ── LEFT: Text ── */}
-            <div className="flex flex-col justify-start p-6 lg:p-10 lg:pt-12">
+            <div className="flex flex-col justify-center p-8 lg:p-14 lg:pl-16">
                 <div
-                    className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg lg:mb-5 lg:h-11 lg:w-11"
+                    className="mb-6 flex h-10 w-10 items-center justify-center rounded-xl lg:mb-8 lg:h-12 lg:w-12"
                     style={{
-                        backgroundColor: "rgba(255,255,255,0.12)",
+                        backgroundColor: "rgba(255,255,255,0.15)",
                         color: feature.textColor,
+                        backdropFilter: "blur(5px)",
+                        border: "1px solid rgba(255,255,255,0.1)",
                     }}
                 >
                     {feature.icon}
                 </div>
 
                 <h3
-                    className="font-extrabold leading-[1.1] tracking-tighter"
+                    className="font-black leading-tight tracking-tighter"
                     style={{
                         fontFamily: "var(--font-heading)",
-                        fontSize: "clamp(1.1rem, 3vw, 1.8rem)",
+                        fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
                         color: feature.textColor,
                     }}
                 >
@@ -285,35 +288,46 @@ const FeatureCardContent = ({
                 </h3>
 
                 <p
-                    className="mt-2 text-sm font-bold tracking-tight opacity-90 lg:mt-3 lg:text-base"
-                    style={{ fontFamily: "var(--font-heading)", color: feature.textColor }}
+                    className="mt-3 text-base font-extrabold tracking-tight lg:mt-4 lg:text-lg"
+                    style={{
+                        fontFamily: "var(--font-heading)",
+                        color: feature.textColor,
+                        opacity: 0.95
+                    }}
                 >
                     {feature.subHeader}
                 </p>
 
                 <p
-                    className="mt-2 max-w-xl text-xs leading-snug opacity-85 lg:mt-4 lg:text-[13px] lg:leading-relaxed"
-                    style={{ fontFamily: "var(--font-body)", color: feature.textColor }}
+                    className="mt-4 max-w-xl text-sm leading-relaxed lg:mt-6 lg:text-[15px] lg:leading-loose"
+                    style={{
+                        fontFamily: "var(--font-body)",
+                        color: feature.textColor,
+                        opacity: 0.8
+                    }}
                 >
                     {feature.description}
                 </p>
 
                 {/* Technical Divider */}
                 <div
-                    className="mt-4 h-[1px] w-12 lg:mt-6 lg:w-20"
-                    style={{ background: `linear-gradient(90deg, ${feature.subtextColor}, transparent)` }}
+                    className="mt-8 h-[2px] w-16 lg:mt-10 lg:w-24"
+                    style={{
+                        background: `linear-gradient(90deg, ${feature.textColor}, transparent)`,
+                        opacity: 0.3
+                    }}
                 />
             </div>
 
             {/* ── RIGHT: Living Visual ── */}
-            <div className="relative flex items-center justify-center p-4 lg:p-6">
+            <div className="relative flex items-center justify-center p-6 lg:p-10">
                 <div
-                    className="relative transition-transform duration-500 hover:scale-105"
+                    className="relative transition-all duration-700 hover:scale-105"
                     style={{
-                        filter: "drop-shadow(0 15px 40px rgba(0,0,0,0.3))",
+                        filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.4))",
                     }}
                 >
-                    <div className="scale-75 lg:scale-90">
+                    <div className="scale-100 lg:scale-110">
                         {feature.visual}
                     </div>
                 </div>
