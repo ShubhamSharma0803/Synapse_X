@@ -5,13 +5,9 @@ import {
 } from "framer-motion";
 import {
     MessageSquareText,
-    BellRing,
     TrendingUp,
-    Flame,
-    IdCard,
     Bot,
     Radio,
-    Users,
 } from "lucide-react";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 
@@ -69,29 +65,6 @@ const TerminalVisual = () => {
     );
 };
 
-const NudgeVisual = () => (
-    <div className="relative flex h-40 w-40 items-center justify-center">
-        {[0, 1, 2].map((i) => (
-            <motion.div
-                key={i}
-                className="absolute rounded-full"
-                style={{
-                    width: 60 + i * 32,
-                    height: 60 + i * 32,
-                    border: `1.5px solid rgba(255,255,255,${0.4 - i * 0.1})`,
-                }}
-                animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0.1, 0.5] }}
-                transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.35, ease: "easeInOut" }}
-            />
-        ))}
-        <div
-            className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full"
-            style={{ backgroundColor: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}
-        >
-            <BellRing className="h-6 w-6 text-white" />
-        </div>
-    </div>
-);
 
 const TimelineVisual = () => {
     const actual = "M 0 120 C 50 120, 70 80, 130 70 S 200 45, 260 60 S 340 35, 400 30 S 460 22, 500 40";
@@ -134,94 +107,6 @@ const TimelineVisual = () => {
                 ))}
             </svg>
         </div>
-    );
-};
-
-const HeatmapVisual = () => {
-    const rows = 7, cols = 16;
-    const data = useRef(
-        Array.from({ length: rows }, () =>
-            Array.from({ length: cols }, () => Math.floor(Math.random() * 5))
-        )
-    ).current;
-    const colors = [
-        "rgba(255,255,255,0.06)", "rgba(0,243,255,0.18)",
-        "rgba(0,243,255,0.35)", "rgba(0,243,255,0.55)", "rgba(0,243,255,0.85)",
-    ];
-    return (
-        <div className="flex flex-col items-center gap-3">
-            <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
-                {data.flatMap((row, r) =>
-                    row.map((v, c) => (
-                        <motion.div
-                            key={`${r}-${c}`} className="rounded"
-                            style={{ width: 16, height: 16, backgroundColor: colors[v] }}
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.2, delay: (r * cols + c) * 0.005 }}
-                            viewport={{ once: true }}
-                            whileHover={{ backgroundColor: "#00f3ff", boxShadow: "0 0 10px rgba(0,243,255,0.6)", scale: 1.4 }}
-                        />
-                    ))
-                )}
-            </div>
-            <div className="flex items-center gap-2">
-                <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>Less</span>
-                {colors.map((c, i) => (
-                    <div key={i} className="h-3 w-3 rounded-[2px]" style={{ backgroundColor: c }} />
-                ))}
-                <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>More</span>
-            </div>
-        </div>
-    );
-};
-
-const ProfileVisual = () => {
-    const stats = [
-        { label: "Commits", val: "2,481" },
-        { label: "PRs", val: "314" },
-        { label: "Streak", val: "47d" },
-    ];
-    return (
-        <motion.div
-            className="relative flex w-56 flex-col items-center gap-4 rounded-2xl p-5"
-            style={{
-                background: "rgba(0,0,0,0.3)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(12px)",
-            }}
-            animate={{ y: [0, -8, 0], rotate: [0, 0.5, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        >
-            <div
-                className="absolute -top-2.5 right-4 rounded-full px-3 py-0.5 text-[10px] font-bold uppercase"
-                style={{ background: "linear-gradient(90deg, #00f3ff, #0066ff)", color: "#000" }}
-            >
-                Lv.42
-            </div>
-            <div
-                className="flex h-16 w-16 items-center justify-center rounded-full text-xl font-bold"
-                style={{
-                    background: "linear-gradient(135deg, #00f3ff, #0066ff)",
-                    color: "rgba(255,255,255,0.95)",
-                    boxShadow: "0 0 25px rgba(0,243,255,0.3)",
-                }}
-            >
-                AM
-            </div>
-            <div className="text-center">
-                <p className="font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>Aarav Mehta</p>
-                <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>Full-Stack Engineer</p>
-            </div>
-            <div className="flex w-full justify-between">
-                {stats.map((s) => (
-                    <div key={s.label} className="text-center">
-                        <p className="text-sm font-bold" style={{ color: "#00f3ff" }}>{s.val}</p>
-                        <p className="text-[8px]" style={{ color: "rgba(255,255,255,0.3)" }}>{s.label}</p>
-                    </div>
-                ))}
-            </div>
-        </motion.div>
     );
 };
 
@@ -286,56 +171,6 @@ const SignalVisual = () => (
     </div>
 );
 
-const CommunityVisual = () => {
-    const people = [
-        { i: "AM", g: "linear-gradient(135deg, #00f3ff, #0066ff)" },
-        { i: "PS", g: "linear-gradient(135deg, #a855f7, #d946ef)" },
-        { i: "RP", g: "linear-gradient(135deg, #10b981, #14b8a6)" },
-        { i: "AG", g: "linear-gradient(135deg, #f59e0b, #ef4444)" },
-        { i: "VS", g: "linear-gradient(135deg, #f43f5e, #d946ef)" },
-        { i: "DK", g: "linear-gradient(135deg, #06b6d4, #3b82f6)" },
-        { i: "MN", g: "linear-gradient(135deg, #8b5cf6, #6366f1)" },
-        { i: "SK", g: "linear-gradient(135deg, #22c55e, #15803d)" },
-    ];
-    return (
-        <div className="relative flex h-44 w-44 items-center justify-center">
-            {people.map((p, idx) => {
-                const angle = (idx / people.length) * Math.PI * 2 - Math.PI / 2;
-                const r = 62;
-                return (
-                    <motion.div
-                        key={p.i}
-                        className="absolute flex h-10 w-10 items-center justify-center rounded-full text-[10px] font-bold"
-                        style={{
-                            background: p.g, color: "rgba(255,255,255,0.9)",
-                            left: `calc(50% + ${Math.cos(angle) * r}px - 20px)`,
-                            top: `calc(50% + ${Math.sin(angle) * r}px - 20px)`,
-                            border: "2px solid rgba(0,0,0,0.4)",
-                            boxShadow: "0 2px 12px rgba(0,0,0,0.3)",
-                        }}
-                        initial={{ opacity: 0, scale: 0.4 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.45, delay: idx * 0.08 }}
-                        viewport={{ once: true }}
-                    >
-                        {p.i}
-                    </motion.div>
-                );
-            })}
-            <div
-                className="flex h-12 w-12 items-center justify-center rounded-full text-xs font-bold"
-                style={{
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    backgroundColor: "rgba(255,255,255,0.06)",
-                    color: "rgba(255,255,255,0.5)",
-                    backdropFilter: "blur(8px)",
-                }}
-            >
-                8+
-            </div>
-        </div>
-    );
-};
 
 /* ══════════════════════════════════════
    FEATURE DATA
@@ -344,7 +179,9 @@ const CommunityVisual = () => {
 interface Feature {
     icon: React.ReactNode;
     title: string;
+    subHeader: string;
     description: string;
+    specs: string[];
     bg: string;
     textColor: string;
     subtextColor: string;
@@ -355,66 +192,54 @@ const features: Feature[] = [
     {
         icon: <MessageSquareText className="h-6 w-6" />,
         title: "AI Standup Generator",
-        description:
-            "Automatically drafts your daily standup from real GitHub commits and Discord activity. No more 'what did everyone do?' meetings.",
+        subHeader: "Turn code noise into team signal.",
+        description: "Every morning, Synapse reads your team's GitHub commits and Discord messages from the previous day and writes your standup for you. No more going around in circles asking what everyone worked on. You open the dashboard, your standup is already there — review it and ship it.",
+        specs: [
+            "SYNC: Bridges GitHub Commits + Discord Activity.",
+            "ELIMINATE: No more manual 'What did you do?' updates.",
+            "DRAFT: Instant, structured summaries for daily syncs.",
+        ],
         bg: "#FF6B2C", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.7)",
         visual: <TerminalVisual />,
     },
     {
-        icon: <BellRing className="h-6 w-6" />,
-        title: "Smart Nudge Alerts",
-        description:
-            "Proactive notifications when a PR stalls, a teammate goes quiet, or a deadline is at risk — before it becomes a problem.",
-        bg: "#1A1A2E", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.5)",
-        visual: <NudgeVisual />,
-    },
-    {
         icon: <TrendingUp className="h-6 w-6" />,
         title: "Predictive Timeline",
-        description:
-            "See not just where your project is, but where it's heading. The ghost-line forecasts delivery based on current velocity and patterns.",
+        subHeader: "Forecast delivery before the delay happens.",
+        description: "Most project tools show you where you are. Synapse shows you where you're going. The AI ghost-line calculates your current velocity, factors in stalls and blockers, and draws a projected delivery path. If you're heading toward a missed deadline, you'll know days in advance — not the night before.",
+        specs: [
+            "ANALYSIS: Uses velocity data to project completion dates.",
+            "VISUAL: Real-time 'Ghost-Line' trajectories on your roadmap.",
+            "ALERT: Neural warnings for potential project bottlenecks.",
+        ],
         bg: "#00E5FF", textColor: "#000000", subtextColor: "rgba(0,0,0,0.55)",
         visual: <TimelineVisual />,
     },
     {
-        icon: <Flame className="h-6 w-6" />,
-        title: "Commit Heatmap",
-        description:
-            "A visual activity map showing contribution intensity across time, so you instantly know who's shipping and when.",
-        bg: "#0F172A", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.45)",
-        visual: <HeatmapVisual />,
-    },
-    {
-        icon: <IdCard className="h-6 w-6" />,
-        title: "Developer Profile Cards",
-        description:
-            "Trading-card style profiles auto-populated from live GitHub stats, complete with level badges and contribution streaks.",
-        bg: "#16A34A", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.65)",
-        visual: <ProfileVisual />,
-    },
-    {
         icon: <Bot className="h-6 w-6" />,
         title: "Orb AI Assistant",
-        description:
-            "A floating AI brain always available on your dashboard. Ask it anything about your project — blockers, progress, team health.",
+        subHeader: "Your omnipresent 3D collaboration partner.",
+        description: "The Orb is your team's always-on floating brain. Click it at any point and ask it anything — what's blocking us right now, how's our sprint looking, who's overloaded this week. It has full context of your codebase activity and team conversations, so its answers are actually relevant to your project, not generic.",
+        specs: [
+            "INTERFACE: 3D floating avatar with Voice-to-Text.",
+            "DOUBT_SOLVER: Contextual help on text highlights.",
+            "PERSISTENCE: Stays with you through every project stage.",
+        ],
         bg: "#0A0A0A", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.4)",
         visual: <OrbVisual />,
     },
     {
         icon: <Radio className="h-6 w-6" />,
         title: "Discord Signal Analyzer",
-        description:
-            "Reads your team channels to extract intent, sentiment, and blockers — so buried problems surface automatically.",
+        subHeader: "Decode the chaos of team chatter.",
+        description: "Your team talks in Discord constantly — but valuable signals like blockers, confusion, and decisions get buried and forgotten. Synapse's Discord analyzer reads those conversations and extracts what actually matters — who's stuck, what's unresolved, what decisions were made. It turns noise into structured, actionable intelligence.",
+        specs: [
+            "SENTIMENT: Maps team mood and energy levels.",
+            "EXTRACTION: Pulls tasks directly from chat threads.",
+            "NOISE_FILTER: Highlights the 5% of messages that actually matter.",
+        ],
         bg: "#7C3AED", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.65)",
         visual: <SignalVisual />,
-    },
-    {
-        icon: <Users className="h-6 w-6" />,
-        title: "Community Gallery",
-        description:
-            "A public circular showcase of your team's contributors, built for open-source visibility and peer recognition.",
-        bg: "#E11D48", textColor: "#ffffff", subtextColor: "rgba(255,255,255,0.65)",
-        visual: <CommunityVisual />,
     },
 ];
 
@@ -429,7 +254,7 @@ const FeatureCardContent = ({
 }) => {
     return (
         <div
-            className="grid h-full w-full grid-cols-1 lg:grid-cols-2"
+            className="grid h-full w-full grid-cols-1 overflow-hidden lg:grid-cols-[1.2fr_0.8fr]"
             style={{
                 backgroundColor: feature.bg,
                 borderRadius: 40,
@@ -437,9 +262,9 @@ const FeatureCardContent = ({
             }}
         >
             {/* ── LEFT: Text ── */}
-            <div className="flex flex-col justify-center p-10 lg:p-16">
+            <div className="flex flex-col justify-start p-6 lg:p-10 lg:pt-12">
                 <div
-                    className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl"
+                    className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg lg:mb-5 lg:h-11 lg:w-11"
                     style={{
                         backgroundColor: "rgba(255,255,255,0.12)",
                         color: feature.textColor,
@@ -449,10 +274,10 @@ const FeatureCardContent = ({
                 </div>
 
                 <h3
-                    className="font-extrabold leading-[0.95] tracking-tight"
+                    className="font-extrabold leading-[1.1] tracking-tighter"
                     style={{
                         fontFamily: "var(--font-heading)",
-                        fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                        fontSize: "clamp(1.1rem, 3vw, 1.8rem)",
                         color: feature.textColor,
                     }}
                 >
@@ -460,21 +285,38 @@ const FeatureCardContent = ({
                 </h3>
 
                 <p
-                    className="mt-5 max-w-md text-base leading-relaxed lg:text-lg"
-                    style={{ fontFamily: "var(--font-body)", color: feature.subtextColor }}
+                    className="mt-2 text-sm font-bold tracking-tight opacity-90 lg:mt-3 lg:text-base"
+                    style={{ fontFamily: "var(--font-heading)", color: feature.textColor }}
+                >
+                    {feature.subHeader}
+                </p>
+
+                <p
+                    className="mt-2 max-w-xl text-xs leading-snug opacity-85 lg:mt-4 lg:text-[13px] lg:leading-relaxed"
+                    style={{ fontFamily: "var(--font-body)", color: feature.textColor }}
                 >
                     {feature.description}
                 </p>
 
+                {/* Technical Divider */}
                 <div
-                    className="mt-8 h-[1px] w-20"
+                    className="mt-4 h-[1px] w-12 lg:mt-6 lg:w-20"
                     style={{ background: `linear-gradient(90deg, ${feature.subtextColor}, transparent)` }}
                 />
             </div>
 
             {/* ── RIGHT: Living Visual ── */}
-            <div className="flex items-center justify-center p-8 lg:p-12">
-                {feature.visual}
+            <div className="relative flex items-center justify-center p-4 lg:p-6">
+                <div
+                    className="relative transition-transform duration-500 hover:scale-105"
+                    style={{
+                        filter: "drop-shadow(0 15px 40px rgba(0,0,0,0.3))",
+                    }}
+                >
+                    <div className="scale-75 lg:scale-90">
+                        {feature.visual}
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -527,7 +369,7 @@ const BentoGrid = () => {
                     className="mx-auto mt-5 max-w-lg text-base lg:text-lg"
                     style={{ fontFamily: "var(--font-body)", color: "rgba(0,0,0,0.45)" }}
                 >
-                    Eight pillars of intelligence, each designed to transform your workflow.
+                    Four pillars of intelligence, each designed to transform your workflow.
                 </motion.p>
             </div>
 
