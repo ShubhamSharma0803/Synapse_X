@@ -1,7 +1,7 @@
 
 Synapse X 🧠
 AI-powered team collaboration platform for developers — sync your GitHub and Discord, get smart alerts, and ship faster together.
-🔗 Live Demo
+🔗 Live Demo - https://synapse-x0803.vercel.app/
 
 What is Synapse X?
 Synapse X eliminates the noise in team collaboration. It connects your GitHub repos and Discord server in real-time, uses AI to detect blockers before they slow your team down, and gives every developer a gamified profile that makes contributions visible and rewarding.
