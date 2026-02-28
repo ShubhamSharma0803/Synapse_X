@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Synapse X 🧠
+AI-powered team collaboration platform for developers — sync your GitHub and Discord, get smart alerts, and ship faster together.
+🔗 Live Demo
 
-Currently, two official plugins are available:
+What is Synapse X?
+Synapse X eliminates the noise in team collaboration. It connects your GitHub repos and Discord server in real-time, uses AI to detect blockers before they slow your team down, and gives every developer a gamified profile that makes contributions visible and rewarding.
+No more manually updating the team. No more missed PRs. No more stale standups.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features
+⚙️ GitHub + Discord Sync
+Real-time OAuth integration. Automatically tracks PRs, commits, issues, and team chat — zero manual input required.
+🔔 Smart Nudges
+AI detects stalled PRs and blockers. Alerts the right person instantly before the team even notices the problem.
+📈 Predictive Timeline
+An AI ghost-line shows where the project will be — not just where it is today.
+🃏 Developer Profiles
+Gamified trading-card profiles with live GitHub stats, level badges, and contribution scores. Makes tracking fun and progress visible.
+🤖 Orb AI Assistant
+A floating AI that answers questions, onboards new members, and auto-generates daily standups every morning.
 
-## React Compiler
+Tech Stack
+LayerTechnologiesFrontendReact.js, TypeScript, Vite, TailwindCSSBackendNode.js, Express.js, MongoDB AtlasAILangChain, GPT-4o, Claude APIIntegrationsGitHub OAuth, Discord.js, Socket.io
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Contributing
+Pull requests are welcome! If you find a bug or have a feature idea, open an issue first to discuss what you'd like to change.
 
-## Expanding the ESLint configuration
+Authors
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Sanyam Nandal — GitHub · LinkedIn
+Shubham Sharma — GitHub
