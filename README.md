@@ -94,6 +94,3 @@ Pull requests are welcome! If you find a bug or have a feature idea, open an iss
 
 ---
 
-
-
-Just paste this directly into your `README.md` — tweak the environment variables section if yours are named differently and add Shubham's LinkedIn if you have it! 🚀
