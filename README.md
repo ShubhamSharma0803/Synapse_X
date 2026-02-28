@@ -20,12 +20,15 @@ Gamified trading-card profiles with live GitHub stats, level badges, and contrib
 A floating AI that answers questions, onboards new members, and auto-generates daily standups every morning.
 
 Tech Stack
-LayerTechnologiesFrontendReact.js, TypeScript, Vite, TailwindCSSBackendNode.js, Express.js, MongoDB AtlasAILangChain, GPT-4o, Claude APIIntegrationsGitHub OAuth, Discord.js, Socket.io
+LayerTechnologies Frontend - React.js, TypeScript, Vite, TailwindCSS 
+Backend - Node.js, Express.js, MongoDB Atlas
+AI - LangChain, GPT-4o, Claude API
+Integrations - GitHub OAuth, Discord.js, Socket.io
 
 Contributing
 Pull requests are welcome! If you find a bug or have a feature idea, open an issue first to discuss what you'd like to change.
 
 Authors
 
-Sanyam Nandal — GitHub · LinkedIn
-Shubham Sharma — GitHub
+Sanyam Nandal 
+Shubham Sharma 
