@@ -30,5 +30,5 @@ Pull requests are welcome! If you find a bug or have a feature idea, open an iss
 
 Authors
 
-Sanyam Nandal 
+Sanyam Nandal , 
 Shubham Sharma 
