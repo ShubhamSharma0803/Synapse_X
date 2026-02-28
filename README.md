@@ -20,9 +20,9 @@ Gamified trading-card profiles with live GitHub stats, level badges, and contrib
 A floating AI that answers questions, onboards new members, and auto-generates daily standups every morning.
 
 Tech Stack
-LayerTechnologies Frontend - React.js, TypeScript, Vite, TailwindCSS 
-Backend - Node.js, Express.js, MongoDB Atlas
-AI - LangChain, GPT-4o, Claude API
+LayerTechnologies || Frontend - React.js, TypeScript, Vite, TailwindCSS ||
+Backend - Node.js, Express.js, MongoDB Atlas ||
+AI - LangChain, GPT-4o, Claude API ||
 Integrations - GitHub OAuth, Discord.js, Socket.io
 
 Contributing
